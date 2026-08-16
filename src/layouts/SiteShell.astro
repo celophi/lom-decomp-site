@@ -1,0 +1,63 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  active?: 'home' | 'blog';
+}
+
+const { title, description, active } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout {title} {description}>
+  <main id="main" class="page-frame">
+    <header class="site-banner" aria-labelledby="site-title">
+      <img src={`${base}images/header.webp`} alt="" width="2168" height="428" />
+      <div class="sr-only">
+        <h1 id="site-title">Legend of Mana Decompilation Project</h1>
+        <p>A matching PlayStation reverse-engineering project.</p>
+      </div>
+    </header>
+
+    <div class="site-body">
+      <aside class="sidebar" aria-label="Site navigation">
+        <section class="side-box navigation-box">
+          <h2 class="side-heading">Navigation</h2>
+          <nav class="nav-buttons">
+            <a class:list={["nav-button", { current: active === 'home' }]} href={base}>
+              <img src={`${base}images/icons/home.webp`} alt="" width="48" height="48" />
+              <span>Home</span>
+            </a>
+            <a class:list={["nav-button", { current: active === 'blog' }]} href={`${base}blog/`}>
+              <img src={`${base}images/icons/blog.webp`} alt="" width="48" height="48" />
+              <span>Blog</span>
+            </a>
+            <a class="nav-button" href="https://decomp.dev/celophi/lom-decomp">
+              <img src={`${base}images/icons/progress.webp`} alt="" width="48" height="48" />
+              <span>Progress</span>
+            </a>
+            <a class="nav-button" href="https://github.com/celophi/lom-decomp">
+              <img src={`${base}images/icons/github.webp`} alt="" width="48" height="48" />
+              <span>GitHub</span>
+            </a>
+          </nav>
+        </section>
+
+        <div class="sidebar-ornament" aria-hidden="true">
+          <img src={`${base}images/icons/flower-white.webp`} alt="" width="120" height="120" />
+        </div>
+      </aside>
+
+      <div class="content-column">
+        <slot />
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <img src={`${base}images/icons/flower-blue.webp`} alt="" width="42" height="42" />
+      <p><strong>lom-decomp</strong> · A community reverse-engineering project.</p>
+      <p><a href="https://github.com/celophi/lom-decomp">Source on GitHub</a></p>
+    </footer>
+  </main>
+</BaseLayout>

@@ -1,6 +1,15 @@
-# lom-decomp GitHub Pages homepage
+# lom-decomp project website
 
-A deliberately late-1990s / early-2000s styled static homepage for the Legend of Mana decompilation project.
+A deliberately simple, late-1990s / early-2000s styled GitHub Pages site for the Legend of Mana decompilation project.
+
+The site has four navigation destinations:
+
+- **Home** — a short explanation of what the project is, what decompilation means, how matching works, and why the project exists.
+- **Blog** — local Markdown posts for project updates and longer write-ups.
+- **Progress** — links to the project on decomp.dev.
+- **GitHub** — links to the source repository.
+
+The homepage intentionally does **not** duplicate the detailed progress dashboard or build documentation.
 
 ## Local development
 
@@ -9,7 +18,36 @@ npm install
 npm run dev
 ```
 
-Open the URL printed by Astro. The GitHub Pages base path is `/lom-decomp/`.
+Astro is configured for the GitHub Pages base path `/lom-decomp/`.
+
+## Adding a blog post
+
+Create a Markdown file in:
+
+```text
+src/data/blog/
+```
+
+For example:
+
+```text
+src/data/blog/compression-retrospective.md
+```
+
+Use this frontmatter:
+
+```md
+---
+title: "Reverse engineering the compressor"
+description: "How the original compression format was reconstructed."
+pubDate: 2026-08-20
+draft: false
+---
+
+Write the post here in normal Markdown.
+```
+
+Posts with `draft: true` are excluded from the generated blog index and article routes. Published posts are automatically sorted newest-first.
 
 ## Tests
 
@@ -20,8 +58,10 @@ npx playwright install
 npm run test:e2e
 ```
 
-## Deploy
+## Deployment
 
-The repository-level `.github/workflows/pages.yml` builds, tests, and publishes `website/dist` to GitHub Pages when changes to `website/**` land on `master`.
+`.github/workflows/pages.yml` builds, tests, and deploys the static `dist/` directory to GitHub Pages on pushes to `main` or `master`.
 
-The fantasy header artwork is an original generated asset created specifically for this project; it does not reuse game screenshots or character art.
+## Artwork
+
+The header, navigation icons, floral ornaments, and parchment section banners are original generated assets created for this project. The site does not depend on game screenshots or official character artwork.
