@@ -1,0 +1,188 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { modules, statusCounts, statusLabels, statusOrder } from '../data/project';
+
+const title = 'Legend of Mana Decompilation Project';
+const description = 'A matching decompilation of the North American PlayStation release of Legend of Mana.';
+const base = import.meta.env.BASE_URL;
+
+const statusSymbol: Record<string, string> = {
+  'fully-linked': '★',
+  matching: '◆',
+  'non-matching': '●',
+  'in-progress': '◐',
+  'not-started': '○',
+};
+---
+<BaseLayout {title} {description}>
+  <main id="main" class="page-frame" data-testid="page-frame">
+    <header class="banner" aria-labelledby="site-title">
+      <img src={`${base}images/fantasy-header.webp`} alt="" width="1335" height="235" />
+      <div class="sr-only">
+        <h1 id="site-title">Legend of Mana Decompilation Project</h1>
+        <p>A matching PlayStation reverse-engineering project.</p>
+      </div>
+    </header>
+
+    <div class="site-body">
+      <aside class="sidebar" aria-label="Site navigation">
+        <section class="side-box navigation-box">
+          <h2 class="side-heading"><span aria-hidden="true">✿</span> Navigation <span aria-hidden="true">✿</span></h2>
+          <nav class="nav-buttons">
+            <a class="nav-button current" href="#home"><span aria-hidden="true">⌂</span> Home</a>
+            <a class="nav-button" href="#project"><span aria-hidden="true">❧</span> Project</a>
+            <a class="nav-button" href="#progress"><span aria-hidden="true">✦</span> Progress</a>
+            <a class="nav-button" href="#decompilation"><span aria-hidden="true">▤</span> What is Decompilation?</a>
+            <a class="nav-button" href="#contribute"><span aria-hidden="true">⚒</span> Contribute</a>
+            <a class="nav-button" href="https://github.com/celophi/lom-decomp"><span aria-hidden="true">&lt;/&gt;</span> GitHub</a>
+          </nav>
+        </section>
+
+        <section class="side-box quick-links">
+          <h2 class="side-heading"><span aria-hidden="true">☘</span> Quick Links</h2>
+          <ul>
+            <li><a href="https://github.com/celophi/lom-decomp">Repository home</a></li>
+            <li><a href="https://decomp.dev/celophi/lom-decomp">Function progress</a></li>
+            <li><a href="#decompilation">How matching works</a></li>
+            <li><a href="#toolchain">Compiler toolchain</a></li>
+          </ul>
+        </section>
+
+        <section class="side-box side-info" aria-label="Project facts">
+          <h2 class="side-heading"><span aria-hidden="true">✧</span> Project Info</h2>
+          <dl>
+            <div><dt>Platform</dt><dd>PlayStation</dd></div>
+            <div><dt>Region</dt><dd>NTSC-U</dd></div>
+            <div><dt>CPU</dt><dd>MIPS R3000A</dd></div>
+            <div><dt>Language</dt><dd>C</dd></div>
+          </dl>
+          <div class="tiny-ornament" aria-hidden="true"><span>✿</span><span>❧</span><span>✿</span></div>
+        </section>
+      </aside>
+
+      <div class="content-column" id="home">
+        <div class="top-panels" id="project">
+          <section class="panel welcome-panel" aria-labelledby="welcome-title">
+            <h2 id="welcome-title" class="ribbon ribbon-blue">Welcome!</h2>
+            <div class="panel-copy">
+              <p><strong>lom-decomp</strong> is a community reverse-engineering effort for the North American PlayStation release of <em>Legend of Mana</em>.</p>
+              <p>Our goal is to recover clean, readable C source code that can reproduce the original game binaries as precisely as possible.</p>
+              <p>By understanding the game at a low level, the project documents its systems, preserves technical knowledge, and creates a foundation for future research.</p>
+            </div>
+            <div class="garden-strip" aria-hidden="true">
+              <span class="flower f1">✿</span><span class="sprout">♧</span><span class="critter critter-yellow"></span><span class="grass">〰〰〰</span><span class="critter critter-pink"></span><span class="sprout">♧</span><span class="flower f2">✿</span>
+            </div>
+          </section>
+
+          <section class="panel status-panel" aria-labelledby="status-title">
+            <h2 id="status-title" class="ribbon ribbon-green">Project Status</h2>
+            <p class="status-big"><strong>1</strong> main executable + <strong>17</strong> overlays</p>
+            <div class="status-lines">
+              <p><span class="star gold">★</span><strong>GNAME / GOVER / MOVIE</strong><span class="status-text fully">Fully Linked</span></p>
+              <p><span class="star gold">★</span><strong>TITLE</strong><span class="status-text matching">Matching</span></p>
+              <p><span class="star bronze">●</span><strong>CHECKPS / GOSUB / MENU</strong><span class="status-text nonmatching">Non-matching</span></p>
+              <p><span class="star green">◐</span><strong>SLUS / FIELD</strong><span class="status-text progress">In Progress</span></p>
+            </div>
+            <p class="status-note">Status is generated from the homepage project manifest.</p>
+          </section>
+        </div>
+
+        <div class="middle-panels">
+          <section class="panel progress-panel" id="progress" aria-labelledby="progress-title">
+            <h2 id="progress-title" class="ribbon ribbon-green">18 Binaries Progress</h2>
+            <div class="module-board" data-testid="module-map">
+              {modules.map((module, index) => (
+                <div class={`module-cell status-${module.status}`}>
+                  <span class="module-number">{String(index + 1).padStart(2, '0')}</span>
+                  <span class="module-dot" aria-hidden="true">{statusSymbol[module.status]}</span>
+                  <strong>{module.name}</strong>
+                  {module.kind === 'main' && <span class="key-mark" title="Main executable">MAIN</span>}
+                </div>
+              ))}
+            </div>
+            <div class="legend" aria-label="Progress legend">
+              {statusOrder.map((status) => (
+                <span class={`legend-item status-${status}`}><i>{statusSymbol[status]}</i> {statusLabels[status]} ({statusCounts[status]})</span>
+              ))}
+            </div>
+          </section>
+
+          <section class="panel cycle-panel" id="decompilation" aria-labelledby="cycle-title">
+            <h2 id="cycle-title" class="ribbon ribbon-blue">The Decompilation Cycle</h2>
+            <div class="cycle" aria-label="BIN to matching C reconstruction cycle">
+              <div class="cycle-step">
+                <div class="pixel-doc" aria-hidden="true"><i></i><i></i><i></i></div>
+                <strong>BIN</strong><small>original</small>
+              </div>
+              <span class="cycle-arrow" aria-hidden="true">➜</span>
+              <div class="cycle-step">
+                <div class="scroll-icon" aria-hidden="true">≋<b>⚙</b></div>
+                <strong>Analyze</strong><small>decompress</small>
+              </div>
+              <span class="cycle-arrow" aria-hidden="true">➜</span>
+              <div class="cycle-step">
+                <div class="c-icon" aria-hidden="true">C</div>
+                <strong>C source</strong><small>readable</small>
+              </div>
+              <span class="cycle-arrow" aria-hidden="true">➜</span>
+              <div class="cycle-step">
+                <div class="compiler-icon" aria-hidden="true">⚙</div>
+                <strong>Build</strong><small>compile + link</small>
+              </div>
+              <span class="cycle-arrow" aria-hidden="true">➜</span>
+              <div class="cycle-step">
+                <div class="pixel-doc sparkle" aria-hidden="true"><i></i><i></i><i></i></div>
+                <strong>BIN!</strong><small>identical</small>
+              </div>
+            </div>
+            <p class="cycle-copy">A matching function compiles to the same machine code as the original. A fully linked module goes farther: compile, link, compress, and reproduce the target binary <strong>byte-for-byte</strong>.</p>
+          </section>
+        </div>
+
+        <section class="panel toolchain-panel" id="toolchain" aria-labelledby="toolchain-title">
+          <h2 id="toolchain-title" class="ribbon ribbon-gold">Compiler Archaeology</h2>
+          <p class="toolchain-intro">Matching old PlayStation code means recreating the compiler behavior too. The project uses historical GCC/Psy-Q-era toolchains and assembler behavior rather than treating compiler output as interchangeable.</p>
+          <div class="compiler-row">
+            <div><span class="compiler-label">PRIMARY</span><strong>GCC 2.8.0-psx</strong><code>-O2 · -G0/-G4 · -fsigned-char</code></div>
+            <div><span class="compiler-label">CDK</span><strong>GCC 2.7.2-cdk</strong><code>-O2 · -G0 · -msoft-float</code></div>
+            <div><span class="compiler-label">LEGACY</span><strong>GCC 2.6.0-psx</strong><code>-O2 · -G0 · -gcoff</code></div>
+          </div>
+          <div class="mini-pipeline"><span>C</span><b>→</b><span>GCC</span><b>→</b><span>maspsx</span><b>→</b><span>ASPSX</span><b>→</b><span>.o</span><b>→</b><span>linked binary</span></div>
+        </section>
+
+        <section class="cta-strip" id="contribute" aria-label="Contribute to lom-decomp">
+          <div class="cta-copy">
+            <strong>Interested in low-level reverse engineering?</strong>
+            <span>Help recover another piece of the original program.</span>
+          </div>
+          <span class="cta-vine" aria-hidden="true">❧</span>
+          <div class="cta-buttons">
+            <a class="big-button green-button" href="https://github.com/celophi/lom-decomp"><span aria-hidden="true">♣</span><strong>View on GitHub</strong><small>Browse the repository</small></a>
+            <a class="big-button blue-button" href="https://decomp.dev/celophi/lom-decomp"><span aria-hidden="true">✿</span><strong>See progress</strong><small>Function-level status</small></a>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="counter-box" aria-label="Website build number">
+        <span>Site build</span>
+        <div class="counter" aria-hidden="true"><b>0</b><b>0</b><b>0</b><b>0</b><b>0</b><b>1</b></div>
+      </div>
+      <div class="footer-note">
+        <strong>Unofficial fan reverse-engineering project.</strong>
+        <span>No copyrighted game assets are distributed by this website.</span>
+      </div>
+      <div class="web-buttons" aria-label="Project technologies">
+        <span>PSX<br /><b>MIPS</b></span>
+        <span>ANSI<br /><b>C</b></span>
+        <span>GCC<br /><b>2.x</b></span>
+      </div>
+      <div class="footer-contact">
+        <strong>lom-decomp</strong>
+        <a href="https://github.com/celophi/lom-decomp">github.com/celophi/lom-decomp</a>
+        <small>Best enjoyed at 1024×768 — responsive anyway!</small>
+      </div>
+    </footer>
+  </main>
+</BaseLayout>

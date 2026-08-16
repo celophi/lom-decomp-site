@@ -1,0 +1,21 @@
+{
+  "name": "lom-decomp-site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "test": "npm run test:unit && npm run build && npm run test:e2e",
+    "test:unit": "vitest run",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@astrojs/check": "latest",
+    "@playwright/test": "latest",
+    "astro": "^6.0.0",
+    "typescript": "latest",
+    "vitest": "latest"
+  }
+}
