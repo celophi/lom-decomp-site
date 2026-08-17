@@ -1,0 +1,30 @@
+---
+import { getCollection, render } from 'astro:content';
+import SiteShell from '../../layouts/SiteShell.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const base = import.meta.env.BASE_URL;
+const title = `${post.data.title} · lom-decomp Blog`;
+const description = post.data.description;
+---
+<SiteShell {title} {description} active="blog">
+  <article class="content-panel blog-post">
+    <header class="post-header">
+      <img src={`${base}images/icons/flower-white.webp`} alt="" width="70" height="70" />
+      <div>
+        <p class="post-kicker"><a href={`${base}blog/`}>← Project Blog</a></p>
+        <h2>{post.data.title}</h2>
+        <time datetime={post.data.pubDate.toISOString()}>{post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}</time>
+      </div>
+    </header>
+    <div class="post-body">
+      <Content />
+    </div>
+  </article>
+</SiteShell>
