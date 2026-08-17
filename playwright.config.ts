@@ -7,12 +7,12 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   reporter: process.env.CI ? [['html', { open: 'never' }], ['list']] : 'list',
   use: {
-    baseURL: 'http://127.0.0.1:4321/lom-decomp/',
+    baseURL: 'http://127.0.0.1:4321/lom-decomp-site/',
     trace: 'on-first-retry',
   },
   webServer: {
     command: 'npm run preview -- --host 127.0.0.1',
-    url: 'http://127.0.0.1:4321/lom-decomp/',
+    url: 'http://127.0.0.1:4321/lom-decomp-site/',
     reuseExistingServer: !process.env.CI,
   },
   projects: [

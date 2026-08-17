@@ -14,7 +14,7 @@ npm install
 npm run dev
 ```
 
-Astro is configured for the GitHub Pages base path `/lom-decomp/`.
+Astro is configured for the GitHub Pages base path `/lom-decomp-site/`.
 
 ## Adding a blog post
 

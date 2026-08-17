@@ -156,11 +156,11 @@ a:hover { color: #9a4328; }
   text-align: center;
   text-shadow: 1px 1px 0 rgba(255,255,255,.88);
 }
-.ribbon-green { background-image: url('/lom-decomp/images/banners/green.webp'); color: #38611c; }
-.ribbon-blue { background-image: url('/lom-decomp/images/banners/blue.webp'); color: #215d91; }
-.ribbon-blush { background-image: url('/lom-decomp/images/banners/blush.webp'); color: #8a4538; }
-.ribbon-lavender { background-image: url('/lom-decomp/images/banners/lavender.webp'); color: #665086; }
-.ribbon-parchment { background-image: url('/lom-decomp/images/banners/parchment.webp'); color: #365f1b; }
+.ribbon-green { background-image: url('/lom-decomp-site/images/banners/green.webp'); color: #38611c; }
+.ribbon-blue { background-image: url('/lom-decomp-site/images/banners/blue.webp'); color: #215d91; }
+.ribbon-blush { background-image: url('/lom-decomp-site/images/banners/blush.webp'); color: #8a4538; }
+.ribbon-lavender { background-image: url('/lom-decomp-site/images/banners/lavender.webp'); color: #665086; }
+.ribbon-parchment { background-image: url('/lom-decomp-site/images/banners/parchment.webp'); color: #365f1b; }
 
 .section-copy { max-width: 720px; margin: 0 auto; font-size: 16px; }
 .section-copy p { margin: 0 0 13px; }
