@@ -271,6 +271,7 @@ a:hover { color: #9a4328; }
 .post-body code { padding: 1px 3px; background: #eee1b8; font-family: 'Courier New', monospace; }
 .post-body pre { overflow-x: auto; padding: 12px; background: #322d24; color: #f3e8c7; border: 2px inset #9d824e; }
 .post-body blockquote { margin: 1em 0; padding: 6px 14px; border-left: 4px solid #7da151; background: rgba(230,240,198,.45); }
+.post-body img { display: block; max-width: 100%; height: auto; margin: 1.4em auto; border: 2px inset #9d824e; }
 
 @media (max-width: 760px) {
   .page-frame { width: calc(100% - 10px); margin: 5px auto 12px; }
