@@ -1,15 +1,11 @@
 # lom-decomp project website
 
-A deliberately simple, late-1990s / early-2000s styled GitHub Pages site for the Legend of Mana decompilation project.
-
 The site has four navigation destinations:
 
 - **Home** — a short explanation of what the project is, what decompilation means, how matching works, and why the project exists.
 - **Blog** — local Markdown posts for project updates and longer write-ups.
 - **Progress** — links to the project on decomp.dev.
 - **GitHub** — links to the source repository.
-
-The homepage intentionally does **not** duplicate the detailed progress dashboard or build documentation.
 
 ## Local development
 

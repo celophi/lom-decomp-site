@@ -25,11 +25,11 @@ test('navigation contains only home, blog, progress and GitHub', async ({ page }
 test('blog index and article pages work', async ({ page }) => {
   await page.goto('./blog/');
   await expect(page.getByRole('heading', { name: 'Project Blog' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Welcome to the project blog' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Why Legend of Mana?' })).toBeVisible();
 
-  await page.getByRole('link', { name: 'Welcome to the project blog' }).click();
-  await expect(page.getByRole('heading', { name: 'Welcome to the project blog' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'What to expect' })).toBeVisible();
+  await page.getByRole('link', { name: 'Why Legend of Mana?' }).click();
+  await expect(page.getByRole('heading', { name: 'Why Legend of Mana?' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Why decompile it?' })).toBeVisible();
 });
 
 test('mobile page has no horizontal overflow', async ({ page }, testInfo) => {
